@@ -202,7 +202,7 @@ namespace Kaisa.LeagueApi.Client {
         /// <summary>
         /// Raised when the items of the player change. This does not include when the order of the items change.
         /// The arguments of the event contain an array with the names of the current items and another array with the names of the old items.
-        /// If the player has no items, the array will contain a single string of value "no_item".
+        /// If the player has no items, the array will contain a single string with value "no_item".
         /// </summary>
         public event ItemChangedEventHandler ItemChanged;
         public delegate void ItemChangedEventHandler(object source, ItemsChangedEventArgs args);
@@ -256,7 +256,7 @@ namespace Kaisa.LeagueApi.Client {
                 OnLeagueEventHappened(args);
                 if (thisEvent is Event_GameStart) OnGameStart(args);
                 else if (thisEvent is Event_MinionsFirstSpawn) OnMinionsFirstSpawn(args);
-                else if (thisEvent is Event_FirstTurretKill) OnFirstBrick(args);
+                else if (thisEvent is Event_FirstTurretKill) OnFirstTurretKill(args);
                 else if (thisEvent is Event_TurretKill) OnTurretKill(args);
                 else if (thisEvent is Event_InhibKill) OnInhibKill(args);
                 else if (thisEvent is Event_DragonKill) OnDragonKill(args);
@@ -265,6 +265,8 @@ namespace Kaisa.LeagueApi.Client {
                 else if (thisEvent is Event_ChampionKill) OnChampionKill(args);
                 else if (thisEvent is Event_MultiKill) OnMultiKill(args);
                 else if (thisEvent is Event_Ace) OnAce(args);
+                else if (thisEvent is Event_FirstBlood) OnFirstBlood(args);
+                else if (thisEvent is Event_GameEnd) OnGameEnd(args);
             }
         }
         /// <summary>
@@ -288,9 +290,9 @@ namespace Kaisa.LeagueApi.Client {
         /// <summary>
         /// Raised when the first brick is broken.
         /// </summary>
-        public event FirstBrickEventHandler FirstBrick;
-        public delegate void FirstBrickEventHandler(object source, LeagueEventArgs args);
-        protected virtual void OnFirstBrick(LeagueEventArgs args) => FirstBrick?.Invoke(this, args);
+        public event FirstTurretKillEventHandler FirstTurretKill;
+        public delegate void FirstTurretKillEventHandler(object source, LeagueEventArgs args);
+        protected virtual void OnFirstTurretKill(LeagueEventArgs args) => FirstTurretKill?.Invoke(this, args);
         /// <summary>
         /// Raised when a turret is destroyed.
         /// </summary>
@@ -339,6 +341,18 @@ namespace Kaisa.LeagueApi.Client {
         public event AceEventHandler Ace;
         public delegate void AceEventHandler(object source, LeagueEventArgs args);
         protected virtual void OnAce(LeagueEventArgs args) => Ace?.Invoke(this, args);
+        /// <summary>
+        /// Raised when a player gets the first blood.
+        /// </summary>
+        public event FirstBloodEventHandler FirstBlood;
+        public delegate void FirstBloodEventHandler(object source, LeagueEventArgs args);
+        protected virtual void OnFirstBlood(LeagueEventArgs args) => FirstBlood?.Invoke(this, args);
+        /// <summary>
+        /// Raised when the game ends.
+        /// </summary>
+        public event GameEndEventHandler GameEnd;
+        public delegate void GameEndEventHandler(object source, LeagueEventArgs args);
+        protected virtual void OnGameEnd(LeagueEventArgs args) => GameEnd?.Invoke(this, args);
         #endregion
     }
 }

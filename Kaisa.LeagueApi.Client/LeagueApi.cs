@@ -284,6 +284,8 @@ namespace Kaisa.LeagueApi.Client {
                 case "ChampionKill": return ReadFromJson<Event_ChampionKill>(json);
                 case "Multikill": return ReadFromJson<Event_MultiKill>(json);
                 case "Ace": return ReadFromJson<Event_Ace>(json);
+                case "FirstBlood": return ReadFromJson<Event_FirstBlood>(json);
+                case "GameEnd": return ReadFromJson<Event_GameEnd>(json);
                 default: return ReadFromJson<LeagueEvent>(json);
             }
         }
